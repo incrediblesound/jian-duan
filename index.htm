@@ -42,17 +42,31 @@
 	});
 
 	var homeView = Backbone.View.extend({
-		template: _.template('<h1>Welcome to Happy Fish</h1><ol><% for(var ti in titles) { %> <li><%= titles[ti] %></li> <% } %></ol>'),
-
+		el: 'body',
+		listEl: '.passage-list',
+		template: _.template('<h1>Welcome to Happy Fish</h1><ol class=".passage-list">\
+		</ol>'),
+		initialize: function(){
+			this.$el.html(this.template);
+		},
 		render: function(){
-			var titles = {titles: this.collection.pluck('title')};
-			var homeHtml = this.template(titles);
-			$( 'body' ).html(homeHtml)
-			$( 'li' ).on( 'click', function(){
-				var listText = $( this ).text();
-				var direct = this.collection.title['listText'];
-				app.navigate('#passages/' + direct.ID, {trigger: true});
+			view = this;
+			this.collection.each(function(passage){
+				var passageSubView = new passageListView({model: passage});
+				passageSubView.render();
+				$(view.listEl).append(passageSubView.$el);
 			});
+			
+		}
+	});
+
+	var passageListView = Backbone.View.extend({
+		tagName: 'li',
+		template: _.template(''
+			+'<a href="#passages/<%= ID %>">'
+			+'<%= title %></a>'),
+		render: function(){
+			this.$el.html(this.template(this.model.attributes));
 		}
 	});
 
@@ -71,6 +85,7 @@
 			$('body').html(passageHtml);
 		}
 	});
+
 	$(document).ready(function(){
 		app = new router;
 		Backbone.history.start();
