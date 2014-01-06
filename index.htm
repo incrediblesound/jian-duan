@@ -42,11 +42,17 @@
 	});
 
 	var homeView = Backbone.View.extend({
-		template: _.template('<h1>Welcome to Happy Fish</h1><ol> </ol>'),
-		//TODO render an ordered list of passage titles (Origin: title) 
+		template: _.template('<h1>Welcome to Happy Fish</h1><ol><% for(var ti in titles) { %> <li><%= titles[ti] %></li> <% } %></ol>'),
+
 		render: function(){
-			var homeHtml = this.template(this.collection);
+			var titles = {titles: this.collection.pluck('title')};
+			var homeHtml = this.template(titles);
 			$( 'body' ).html(homeHtml)
+			$( 'li' ).on( 'click', function(){
+				var listText = $( this ).text();
+				var direct = this.collection.title['listText'];
+				app.navigate('#passages/' + direct.ID, {trigger: true});
+			});
 		}
 	});
 
