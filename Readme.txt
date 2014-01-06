@@ -1,0 +1,1 @@
+This is my first backbone.js project. The purpose is to create a user friendly archive of short passages from Classical Chinese texts specially selected and translated by myself.
