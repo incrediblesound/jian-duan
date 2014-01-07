@@ -47,15 +47,16 @@
 		template: _.template('<h1>Welcome to Happy Fish</h1><ol class="passage-list">\
 		</ol>'),
 		initialize: function(){
-			this.$el.html(this.template);
-		},
+				
+    },
 		render: function(){
-			view = this;
+			this.$el.html(''); // empty the html
+      this.$el.html(this.template()); //you want to call teh template so it return a string
 			this.collection.each(function(passage){
 				var passageSubView = new passageListView({model: passage});
 				passageSubView.render();
-				$(view.listEl).append(passageSubView.$el);
-			});
+				this.$el.find(this.listEl).append(passageSubView.$el);
+			}, this);
 			
 		}
 	});
