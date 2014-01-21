@@ -12,6 +12,7 @@ var homeView = Backbone.View.extend({
 		this.collection.each(function(text){
 			var textSubView = new textListView({model: text});
 			textSubView.render();
+      console.log(this);
 			this.$el.find(this.listEl).append(textSubView.$el);
 		}, this);
 	}

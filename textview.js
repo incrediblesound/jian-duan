@@ -14,7 +14,12 @@ var textView = Backbone.View.extend({
      var passage = textModel.attributes.passages;
      var This = this;
     _.each(passage, function(text) {
-      var passageSubView = new passageListView({model: text});
+      passage = new Passage({
+        ID: text.ID,
+        title: text.title,
+        trans: text.trans
+      });
+      var passageSubView = new passageListView({model: passage});
           passageSubView.render();
       This.$el.find(This.listEL).append(passageSubView.$el)
     });
