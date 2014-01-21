@@ -1,7 +1,7 @@
 var textView = Backbone.View.extend({
   el: '.info',  
   listEl: '.pass',
-	template: _.template('<h2 attributes.text %></h1>\
+	template: _.template('<h2><%= attributes.text %></h2>\
 		<p><%= attributes.info %></p>\
      <ul class="pass"></ul>\
   '),
@@ -21,7 +21,7 @@ var textView = Backbone.View.extend({
       });
       var passageSubView = new passageListView({model: passage});
           passageSubView.render();
-      This.$el.find(This.listEL).append(passageSubView.$el)
+      This.$el.find(This.listEL).append(passageSubView.$el);
     });
   }
 });
