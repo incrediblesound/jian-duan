@@ -54,3 +54,5 @@ var passageData = [
     ]    
   }
 ];
+
+  var Passages = Backbone.Collection.extend({});
